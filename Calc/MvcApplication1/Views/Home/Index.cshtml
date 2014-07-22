@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Calc</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <input type="text" id="calcField" class="form-control" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-3">
+        <button type="button" class="btn btn-default">7</button>
+        <button type="button" class="btn btn-default">8</button>
+        <button type="button" class="btn btn-default">9</button>
+        <br/>
+        <button type="button" class="btn btn-default">4</button>
+        <button type="button" class="btn btn-default">5</button>
+        <button type="button" class="btn btn-default">6</button>
+        <br/>
+        <button type="button" class="btn btn-default">1</button>
+        <button type="button" class="btn btn-default">2</button>
+        <button type="button" class="btn btn-default">3</button>
+        <br/>
+        <button type="button" class="btn btn-default">0</button>
+        <button type="button" class="btn btn-default">C</button>
+    </div>
+    <div class="col-sm-9">
+        <button type="button" class="btn btn-primary">+</button>
+        <button type="button" class="btn btn-primary">-</button>
+        <button type="button" class="btn btn-primary">÷</button>
+        <br />
+        <button type="button" class="btn btn-primary">x</button>
+        <button type="button" class="btn btn-primary">=</button>
+    </div>
+</div>
+
+<script>
+
+    var summand1;
+    var summand2;
+    var operator;
+
+    $(function() {
+        $('button.btn-default').click(function (e) {
+            //debugger
+            
+            //console.log(e); //ивент который спровоцировал вызов этого метода
+            //console.log(e.currentTarget); //элемент ивента (html)
+
+            var $btn = $(e.currentTarget); //$(html) - jquery объект
+            if ($btn.text() == 'C')
+            {
+                $('#calcField').val('');
+                summand1 = '';
+                summand2 = '';
+            }
+            else
+            {
+                var btnInnerText = $btn.text();
+                //debugger;
+                $('#calcField').val($('#calcField').val() + btnInnerText);
+            }
+            
+
+            //console.log($btn);
+        });
+    })
+
+    $(function () {
+        $('button.btn-primary').click(function (e) {
+                   
+            var $btn = $(e.currentTarget); //$(html) - jquery объект
+            
+            //debugger;
+            if ($btn.text() == '=')
+            {
+                summand2 = $('#calcField').val();
+
+                switch (operator)
+                {
+                    case '+':
+                        {
+                            $('#calcField').val(parseInt(summand1) + parseInt(summand2));
+                            break;
+                        }
+
+                    case '-':
+                        {
+                            $('#calcField').val(parseInt(summand1) - parseInt(summand2));
+                            break;
+                        }
+
+                    case '÷':
+                        {
+                            $('#calcField').val(parseInt(summand1) / parseInt(summand2));
+                            break;
+                        }
+
+                    case 'x':
+                        {
+                            $('#calcField').val(parseInt(summand1) * parseInt(summand2));
+                            break;
+                        }
+                }
+                
+            }
+            else
+            {
+                operator = $btn.text();
+                summand1 = $('#calcField').val();
+                $('#calcField').val('');
+            }
+       
+        });
+    })
+
+</script>
